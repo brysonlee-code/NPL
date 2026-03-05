@@ -248,7 +248,8 @@ img {
 .nav__mobile.is-open .nav__mobile-link:nth-child(2) { transition-delay: 0.13s; }
 .nav__mobile.is-open .nav__mobile-link:nth-child(3) { transition-delay: 0.18s; }
 .nav__mobile.is-open .nav__mobile-link:nth-child(4) { transition-delay: 0.23s; }
-.nav__mobile.is-open .nav__mobile-cta { transition-delay: 0.3s; }
+.nav__mobile.is-open .nav__mobile-link:nth-child(5) { transition-delay: 0.28s; }
+.nav__mobile.is-open .nav__mobile-cta { transition-delay: 0.35s; }
 
 /* Reset delays on close for a clean exit */
 .nav__mobile:not(.is-open) .nav__mobile-link,
@@ -978,6 +979,204 @@ body.menu-open {
     color: var(--text-muted);
     text-align: center;
     margin-top: 12px;
+}
+
+/* --- Grant Portal Promo --- */
+.grant-portal-promo {
+    position: relative;
+}
+
+.grant-promo {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+.grant-promo__glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 30px;
+    background: var(--gradient-full);
+    opacity: 0.5;
+    z-index: 0;
+    animation: featuredGlow 6s ease-in-out infinite alternate;
+}
+
+.grant-promo__inner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(165deg, rgba(14, 14, 24, 0.97) 0%, rgba(10, 10, 18, 0.99) 100%);
+    border-radius: 28px;
+    padding: 56px;
+}
+
+.grant-promo__layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.grant-promo__badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    background: var(--gradient-full);
+    color: white;
+    margin-bottom: 24px;
+}
+
+.grant-promo__title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 20%, var(--blue-light) 50%, var(--purple-light) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.grant-promo__desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+.grant-promo__features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.grant-promo__feature {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.grant-promo__feature svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.grant-promo__feature span {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.grant-promo__feature strong {
+    color: var(--text-primary);
+}
+
+.grant-promo__cta {
+    display: inline-flex;
+}
+
+.grant-promo__visual {
+    display: flex;
+    justify-content: center;
+}
+
+.grant-promo__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.grant-promo__stat-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.grant-promo__stat-card:hover {
+    border-color: rgba(91, 134, 229, 0.3);
+    transform: translateY(-2px);
+}
+
+.grant-promo__stat-num {
+    display: block;
+    font-size: 32px;
+    font-weight: 800;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.grant-promo__stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 991px) {
+    .grant-promo__layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .grant-promo__inner {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .grant-promo__inner {
+        padding: 32px 24px;
+    }
+
+    .grant-promo__stats {
+        max-width: 100%;
+    }
+
+    .grant-promo__stat-card {
+        padding: 20px 16px;
+    }
+
+    .grant-promo__stat-num {
+        font-size: 26px;
+    }
+
+    .grant-promo__cta {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 479px) {
+    .grant-promo {
+        border-radius: 18px;
+    }
+
+    .grant-promo__glow {
+        border-radius: 20px;
+    }
+
+    .grant-promo__inner {
+        border-radius: 18px;
+        padding: 24px 20px;
+    }
+
+    .grant-promo__title {
+        font-size: 26px;
+    }
 }
 
 /* --- CTA / Contact --- */
