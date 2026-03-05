@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPL Grant Intelligence Portal | Neuroplastic Labs</title>
+    <meta name="description" content="AI-powered STEM grant discovery and matching for Midwest startups.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="grants.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav is-scrolled" id="nav">
+        <div class="nav__inner">
+            <a href="/" class="nav__logo">
+                <img src="logo.png" alt="Neuroplastic Labs" class="nav__logo-img">
+                <span class="nav__logo-text">NEUROPLASTIC LABS</span>
+            </a>
+            <div class="nav__links is-desktop">
+                <a href="/" class="nav__link">Home</a>
+                <a href="/#products" class="nav__link">Products</a>
+                <a href="#grants-db" class="nav__link">Grant Database</a>
+                <a href="#screener" class="nav__link">Grant Screener</a>
+            </div>
+            <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav__mobile" id="mobileMenu">
+            <div class="nav__mobile-inner">
+                <a href="/" class="nav__mobile-link">Home</a>
+                <a href="#grants-db" class="nav__mobile-link">Grant Database</a>
+                <a href="#screener" class="nav__mobile-link">Grant Screener</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Access Gate -->
+    <div class="gate" id="accessGate">
+        <div class="gate__bg"></div>
+        <div class="gate__overlay"></div>
+        <div class="gate__content">
+            <div class="gate__logo">
+                <img src="logo.png" alt="Neuroplastic Labs" class="gate__logo-img">
+            </div>
+            <h1 class="gate__title">Grant Intelligence Portal</h1>
+            <p class="gate__subtitle">AI-powered STEM grant discovery and matching for Midwest startups</p>
+            <div class="gate__form">
+                <label class="gate__label" for="accessCode">Enter Premium Access Code</label>
+                <div class="gate__input-wrap">
+                    <input type="text" id="accessCode" class="gate__input" placeholder="Access Code" autocomplete="off" spellcheck="false">
+                    <button class="gate__btn" id="accessBtn">Unlock Portal</button>
+                </div>
+                <p class="gate__error" id="gateError">Invalid access code. Please try again.</p>
+            </div>
+            <p class="gate__note">Contact <a href="mailto:bryson@tremortoneapp.com">bryson@tremortoneapp.com</a> for access</p>
+        </div>
+    </div>
+
+    <!-- Portal (hidden until authenticated) -->
+    <div class="portal" id="portal" style="display:none;">
+
+        <!-- Portal Hero -->
+        <section class="portal-hero">
+            <div class="container">
+                <div class="portal-hero__content">
+                    <span class="portal-hero__badge">NPL Grant Intelligence</span>
+                    <h1 class="portal-hero__title">Midwest STEM<br>Grant Database</h1>
+                    <p class="portal-hero__subtitle">269+ active federal and state grants, AI-classified and scored for Midwest STEM startups</p>
+                    <div class="portal-hero__stats">
+                        <div class="portal-hero__stat">
+                            <span class="portal-hero__stat-num" id="statGrants">--</span>
+                            <span class="portal-hero__stat-label">Active Grants</span>
+                        </div>
+                        <div class="portal-hero__stat">
+                            <span class="portal-hero__stat-num">11</span>
+                            <span class="portal-hero__stat-label">Data Sources</span>
+                        </div>
+                        <div class="portal-hero__stat">
+                            <span class="portal-hero__stat-num">8</span>
+                            <span class="portal-hero__stat-label">Midwest States</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grant Database -->
+        <section class="section grants-db" id="grants-db">
+            <div class="container">
+                <h2 class="section__label">Grant Database</h2>
+                <h3 class="section__heading">Browse Active Opportunities</h3>
+
+                <!-- Filters -->
+                <div class="grants-filters">
+                    <input type="text" id="searchGrants" class="grants-filters__search" placeholder="Search grants by title, agency, or keyword...">
+                    <div class="grants-filters__row">
+                        <select id="filterAgency" class="grants-filters__select">
+                            <option value="">All Agencies</option>
+                            <option value="NSF">NSF</option>
+                            <option value="NIH">NIH</option>
+                            <option value="DOE">DOE</option>
+                            <option value="DOD">DOD</option>
+                            <option value="NASA">NASA</option>
+                            <option value="EPA">EPA</option>
+                            <option value="USDA">USDA</option>
+                            <option value="Ohio Third Frontier">Ohio Third Frontier</option>
+                            <option value="Wisconsin SBIR Advance">Wisconsin SBIR Advance</option>
+                            <option value="Indiana FAST">Indiana FAST</option>
+                            <option value="Other Federal">Other Federal</option>
+                        </select>
+                        <select id="filterStatus" class="grants-filters__select">
+                            <option value="">All Statuses</option>
+                            <option value="Open">Open</option>
+                            <option value="Rolling">Rolling</option>
+                            <option value="Forecasted">Forecasted</option>
+                            <option value="Closing Soon">Closing Soon</option>
+                        </select>
+                        <select id="filterScope" class="grants-filters__select">
+                            <option value="">All Regions</option>
+                            <option value="National">National</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Midwest Region">Midwest Region</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grants Table -->
+                <div class="grants-table-wrap">
+                    <div class="grants-loading" id="grantsLoading">
+                        <div class="grants-loading__spinner"></div>
+                        <p>Loading grants from Airtable...</p>
+                    </div>
+                    <table class="grants-table" id="grantsTable" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Agency</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Funding</th>
+                                <th>Region</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="grantsBody"></tbody>
+                    </table>
+                    <p class="grants-empty" id="grantsEmpty" style="display:none;">No grants match your filters.</p>
+                </div>
+                <div class="grants-pagination" id="grantsPagination"></div>
+            </div>
+        </section>
+
+        <!-- Grant Screener -->
+        <section class="section screener" id="screener">
+            <div class="container">
+                <h2 class="section__label">NPL Grant Screener</h2>
+                <h3 class="section__heading">Find Your Best Grant Matches</h3>
+                <p class="screener__intro">Complete this questionnaire and our AI will match your company against 269+ active STEM grants, scoring relevance and win probability.</p>
+
+                <form class="screener-form" id="screenerForm">
+
+                    <div class="screener-form__group">
+                        <label class="screener-form__label" for="companyName">Company Name *</label>
+                        <input type="text" id="companyName" class="screener-form__input" required>
+                    </div>
+
+                    <div class="screener-form__group">
+                        <label class="screener-form__label" for="companyWebsite">Website</label>
+                        <input type="url" id="companyWebsite" class="screener-form__input" placeholder="https://...">
+                    </div>
+
+                    <div class="screener-form__row">
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyCity">City *</label>
+                            <input type="text" id="companyCity" class="screener-form__input" required>
+                        </div>
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyState">State *</label>
+                            <select id="companyState" class="screener-form__select" required>
+                                <option value="">Select State</option>
+                                <option value="Ohio">Ohio</option>
+                                <option value="Michigan">Michigan</option>
+                                <option value="Illinois">Illinois</option>
+                                <option value="Indiana">Indiana</option>
+                                <option value="Wisconsin">Wisconsin</option>
+                                <option value="Minnesota">Minnesota</option>
+                                <option value="Iowa">Iowa</option>
+                                <option value="Other Midwest">Other Midwest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="screener-form__group">
+                        <label class="screener-form__label" for="companyDesc">What does your company do? *</label>
+                        <textarea id="companyDesc" class="screener-form__textarea" rows="3" required placeholder="Brief description of your product, technology, and market..."></textarea>
+                    </div>
+
+                    <div class="screener-form__group">
+                        <label class="screener-form__label">STEM Focus Areas * <span class="screener-form__hint">(select all that apply)</span></label>
+                        <div class="screener-form__chips" id="stemChips">
+                            <button type="button" class="screener-chip" data-value="Advanced Manufacturing">Advanced Manufacturing</button>
+                            <button type="button" class="screener-chip" data-value="AI/ML">AI/ML</button>
+                            <button type="button" class="screener-chip" data-value="Biotech/Life Sciences">Biotech/Life Sciences</button>
+                            <button type="button" class="screener-chip" data-value="Clean Energy">Clean Energy</button>
+                            <button type="button" class="screener-chip" data-value="Cybersecurity">Cybersecurity</button>
+                            <button type="button" class="screener-chip" data-value="Materials Science">Materials Science</button>
+                            <button type="button" class="screener-chip" data-value="Robotics/Automation">Robotics/Automation</button>
+                            <button type="button" class="screener-chip" data-value="Healthcare/MedTech">Healthcare/MedTech</button>
+                            <button type="button" class="screener-chip" data-value="AgTech">AgTech</button>
+                            <button type="button" class="screener-chip" data-value="Quantum Computing">Quantum Computing</button>
+                            <button type="button" class="screener-chip" data-value="Semiconductors">Semiconductors</button>
+                            <button type="button" class="screener-chip" data-value="Space/Aerospace">Space/Aerospace</button>
+                            <button type="button" class="screener-chip" data-value="Environmental/Climate">Environmental/Climate</button>
+                            <button type="button" class="screener-chip" data-value="EdTech">EdTech</button>
+                            <button type="button" class="screener-chip" data-value="IoT/Sensors">IoT/Sensors</button>
+                            <button type="button" class="screener-chip" data-value="Software/SaaS">Software/SaaS</button>
+                        </div>
+                    </div>
+
+                    <div class="screener-form__row">
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyStage">Company Stage *</label>
+                            <select id="companyStage" class="screener-form__select" required>
+                                <option value="">Select Stage</option>
+                                <option value="Pre-Seed">Pre-Seed</option>
+                                <option value="Seed">Seed</option>
+                                <option value="Series A">Series A</option>
+                                <option value="Series B+">Series B+</option>
+                                <option value="Bootstrapped">Bootstrapped</option>
+                            </select>
+                        </div>
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyEmployees">Employee Count</label>
+                            <input type="number" id="companyEmployees" class="screener-form__input" placeholder="e.g. 5">
+                        </div>
+                    </div>
+
+                    <div class="screener-form__row">
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyFounded">Founded Year</label>
+                            <input type="number" id="companyFounded" class="screener-form__input" placeholder="e.g. 2024">
+                        </div>
+                        <div class="screener-form__group">
+                            <label class="screener-form__label" for="companyEmail">Contact Email *</label>
+                            <input type="email" id="companyEmail" class="screener-form__input" required>
+                        </div>
+                    </div>
+
+                    <div class="screener-form__group">
+                        <label class="screener-form__label" for="companyGrants">Prior Grant History</label>
+                        <textarea id="companyGrants" class="screener-form__textarea" rows="2" placeholder="List any previous grants received (SBIR, state grants, etc.)..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--large screener-form__submit">
+                        Submit & Find Grant Matches
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="screener-success" id="screenerSuccess" style="display:none;">
+                    <div class="screener-success__icon">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="url(#suc_grad)" stroke-width="2.5"/><path d="M20 32l8 8 16-16" stroke="url(#suc_grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="suc_grad" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#5B86E5"/><stop offset="1" stop-color="#9B59B6"/></linearGradient></defs></svg>
+                    </div>
+                    <h3 class="screener-success__title">Company Profile Submitted</h3>
+                    <p class="screener-success__text">Your profile has been added to our grant matching system. Our AI will analyze 269+ grants against your company profile and deliver personalized match results.</p>
+                    <p class="screener-success__text">You'll receive your grant match report at <strong id="successEmail"></strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__bottom" style="border-top:none; padding-top:0;">
+                    <p>&copy; 2025 Neuroplastic Labs. All rights reserved.</p>
+                    <div class="footer__legal">
+                        <a href="/">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="grants.js"></script>
+</body>
+</html>
