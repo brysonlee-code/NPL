@@ -361,7 +361,10 @@
                     <p class="products__card-desc">
                         Our flagship platform measures and maps the connection between cognitive processing and motor performance. Real-time scoring, trend tracking, and personalized optimization &mdash; powered by Nobel Research.
                     </p>
-                    <span class="products__card-status products__card-status--dev">In Development</span>
+                    <div class="products__card-actions">
+                        <button class="btn btn--demo" onclick="openNFIDemo()">Try Demo</button>
+                        <span class="products__card-status products__card-status--dev">In Development</span>
+                    </div>
                 </div>
 
                 <!-- Plant Masters -->
@@ -493,6 +496,22 @@
             </div>
         </div>
     </footer>
+
+    <!-- NFI Demo Modal -->
+    <div class="demo-modal" id="nfi-demo-modal">
+        <div class="demo-modal__header">
+            <div class="demo-modal__title">
+                <svg width="24" height="24" viewBox="0 0 60 60" fill="none">
+                    <circle cx="30" cy="30" r="25" stroke="#9B59B6" stroke-width="3" fill="none"/>
+                    <path d="M30 5 A 25 25 0 0 1 52 38" stroke="#5B86E5" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <text x="30" y="35" text-anchor="middle" fill="white" font-family="Inter" font-size="14" font-weight="700">NFI</text>
+                </svg>
+                <span>G.R.I.P. &mdash; Neuroplastic Fitness Index Demo</span>
+            </div>
+            <button class="demo-modal__close" onclick="closeNFIDemo()" aria-label="Close demo">&times;</button>
+        </div>
+        <iframe class="demo-modal__iframe" id="nfi-demo-iframe" src="about:blank" allow="accelerometer; gyroscope"></iframe>
+    </div>
 
     <script src="script.js"></script>
 </body>

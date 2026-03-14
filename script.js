@@ -195,3 +195,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { passive: true });
 });
+
+/* ---- NFI Demo Modal ---- */
+const NFI_DEMO_URL = 'https://brysonlee-code.github.io/grip-platform/';
+
+function openNFIDemo() {
+    const modal = document.getElementById('nfi-demo-modal');
+    const iframe = document.getElementById('nfi-demo-iframe');
+    iframe.src = NFI_DEMO_URL;
+    modal.classList.add('demo-modal--open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeNFIDemo() {
+    const modal = document.getElementById('nfi-demo-modal');
+    const iframe = document.getElementById('nfi-demo-iframe');
+    modal.classList.remove('demo-modal--open');
+    document.body.style.overflow = '';
+    iframe.src = 'about:blank';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeNFIDemo();
+});
