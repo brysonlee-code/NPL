@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroplastic Labs — Facility Intake</title>
+
+  <meta property="og:title" content="NFI Facility Intake — Neuroplastic Labs">
+  <meta property="og:description" content="See if your rehab facility qualifies for a Neural Fitness Index pilot. Takes 2 minutes.">
+  <meta property="og:url" content="https://neuroplasticlabs.io/intake.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0a12;
+      color: #E0E0E0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: #7BA3F0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(91,134,229,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 25%, rgba(155,89,182,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 75%, rgba(212,145,90,0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at center, transparent 30%, #0a0a12 80%);
+    }
+
+    /* ── Header ── */
+    .header {
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-link:hover { text-decoration: none; }
+
+    .logo-img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .header-cta {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #5B86E5;
+      background: transparent;
+      border: 1.5px solid rgba(91,134,229,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .header-cta:hover {
+      background: rgba(91,134,229,0.08);
+      border-color: #5B86E5;
+      text-decoration: none;
+    }
+
+    /* ── Page intro ── */
+    .page-intro {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .page-intro h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    .hero-accent {
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-intro p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Form container ── */
+    .form-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .form-section {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-section h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-number {
+      font-family: 'JetBrains Mono', monospace;
+      color: rgba(91,134,229,0.5);
+      margin-right: 0.5rem;
+    }
+
+    /* ── Form fields ── */
+    .field {
+      margin-bottom: 1rem;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.35rem;
+    }
+
+    label .req {
+      color: #D4915A;
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #E0E0E0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(91,134,229,0.5);
+      box-shadow: 0 0 0 3px rgba(91,134,229,0.1);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%237BA3F0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+    }
+
+    select option {
+      background: #1a1a2e;
+      color: #E0E0E0;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* ── Radio & Checkbox groups ── */
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .radio-option,
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .radio-option:hover,
+    .checkbox-option:hover {
+      border-color: rgba(91,134,229,0.3);
+      background: rgba(91,134,229,0.05);
+    }
+
+    .radio-option input,
+    .checkbox-option input {
+      accent-color: #5B86E5;
+      cursor: pointer;
+    }
+
+    .other-text {
+      width: 120px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+      color: #E0E0E0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      outline: none;
+      margin-left: 0.25rem;
+    }
+
+    /* ── FIM warning ── */
+    .fim-warning {
+      display: none;
+      background: rgba(212,145,90,0.1);
+      border: 1px solid rgba(212,145,90,0.25);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #E8B07A;
+      line-height: 1.5;
+    }
+
+    .fim-warning.visible {
+      display: block;
+    }
+
+    /* ── Submit button ── */
+    .submit-wrap {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      padding: 0.9rem 3rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: box-shadow 0.2s, transform 0.15s, opacity 0.2s;
+    }
+
+    .btn-submit:hover {
+      box-shadow: 0 0 30px rgba(91,134,229,0.35), 0 4px 16px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ── Validation error ── */
+    .field-error {
+      font-size: 0.72rem;
+      color: #D4915A;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* ── Success state ── */
+    .success-state {
+      display: none;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .success-state.visible {
+      display: block;
+    }
+
+    .success-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(91,134,229,0.12);
+      border: 2px solid rgba(91,134,229,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .success-icon svg {
+      width: 32px; height: 32px;
+      stroke: #5B86E5;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .success-state h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-state p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn-calendly {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-calendly:hover {
+      box-shadow: 0 0 30px rgba(91,134,229,0.35), 0 4px 16px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      width: 100%;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer a { color: #7BA3F0; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .page-intro h1 { font-size: 1.5rem; }
+      .form-section { padding: 1.25rem 1rem; }
+      .radio-group, .checkbox-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.png" alt="Neuroplastic Labs" class="logo-img">
+      <span class="logo">NEUROPLASTIC LABS</span>
+    </a>
+    <a href="video.html" class="header-cta">Watch Video</a>
+  </div>
+
+  <!-- Intro -->
+  <div class="page-intro" id="page-intro">
+    <h1>See If NFI Fits <span class="hero-accent">Your Facility</span></h1>
+    <p>Takes about 2 minutes. We'll follow up with a tailored overview of how NFI integrates with your current discharge workflow.</p>
+  </div>
+
+  <!-- Form -->
+  <div class="form-container" id="form-container">
+    <form id="intake-form" novalidate>
+
+      <!-- Section 1: Facility Info -->
+      <div class="form-section">
+        <h2><span class="section-number">01</span> Facility Information</h2>
+
+        <div class="field">
+          <label for="facility-name">Facility Name <span class="req">*</span></label>
+          <input type="text" id="facility-name" name="facility_name" required>
+          <div class="field-error" id="err-facility-name">Facility name is required</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="contact-name">Your Name <span class="req">*</span></label>
+            <input type="text" id="contact-name" name="contact_name" required>
+            <div class="field-error" id="err-contact-name">Your name is required</div>
+          </div>
+          <div class="field">
+            <label for="role">Role / Title <span class="req">*</span></label>
+            <input type="text" id="role" name="role" required>
+            <div class="field-error" id="err-role">Role is required</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" required>
+            <div class="field-error" id="err-email">Valid email is required</div>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="facility-type">Facility Type <span class="req">*</span></label>
+            <select id="facility-type" name="facility_type" required>
+              <option value="">Select...</option>
+              <option value="Inpatient Rehab Facility">Inpatient Rehab Facility</option>
+              <option value="Skilled Nursing Facility">Skilled Nursing Facility</option>
+              <option value="Long-Term Acute Care">Long-Term Acute Care</option>
+              <option value="Outpatient Rehab">Outpatient Rehab</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="field-error" id="err-facility-type">Please select a facility type</div>
+          </div>
+          <div class="field">
+            <label for="beds">Number of Beds</label>
+            <select id="beds" name="beds">
+              <option value="">Select...</option>
+              <option value="Under 50">Under 50</option>
+              <option value="50-100">50-100</option>
+              <option value="100-250">100-250</option>
+              <option value="250+">250+</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Current Assessments -->
+      <div class="form-section">
+        <h2><span class="section-number">02</span> Current Assessments</h2>
+
+        <div class="field">
+          <label>Does your facility currently administer FIM assessments? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="fim" value="Yes" required> Yes
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="fim" value="No"> No
+            </label>
+          </div>
+          <div class="field-error" id="err-fim">Please select an option</div>
+          <div class="fim-warning" id="fim-warning">
+            NFI is designed to complement FIM-based discharge workflows. We can still discuss how NFI might fit your facility — your submission will be noted for our team to review.
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Which discharge assessments do you currently use?</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="FIM"> FIM</label>
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="Barthel Index"> Barthel Index</label>
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="MoCA/MMSE"> MoCA/MMSE</label>
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="AM-PAC"> AM-PAC</label>
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="Berg Balance"> Berg Balance</label>
+            <label class="checkbox-option"><input type="checkbox" name="assessments" value="PHQ-9"> PHQ-9</label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="assessments" value="Other" id="assess-other-check"> Other
+              <input type="text" class="other-text" id="assess-other-text" placeholder="Specify...">
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Are these assessments currently billed to insurance?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="billed" value="Yes"> Yes</label>
+            <label class="radio-option"><input type="radio" name="billed" value="No"> No</label>
+            <label class="radio-option"><input type="radio" name="billed" value="Some"> Some</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Readmission & Pain Points -->
+      <div class="form-section">
+        <h2><span class="section-number">03</span> Readmission &amp; Pain Points</h2>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="readmission-rate">Approximate 30-day readmission rate</label>
+            <select id="readmission-rate" name="readmission_rate">
+              <option value="">Select...</option>
+              <option value="Under 10%">Under 10%</option>
+              <option value="10-15%">10-15%</option>
+              <option value="15-20%">15-20%</option>
+              <option value="20%+">20%+</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Is reducing readmissions a current priority?</label>
+            <div class="radio-group" style="margin-top: 0.35rem;">
+              <label class="radio-option"><input type="radio" name="reduce_priority" value="Yes"> Yes</label>
+              <label class="radio-option"><input type="radio" name="reduce_priority" value="No"> No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="challenge">Biggest challenge with current discharge process</label>
+          <textarea id="challenge" name="challenge" placeholder="Optional — help us tailor the conversation"></textarea>
+        </div>
+      </div>
+
+      <!-- Section 4: Interest -->
+      <div class="form-section">
+        <h2><span class="section-number">04</span> Interest</h2>
+
+        <div class="field">
+          <label>What interests you about NFI?</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option"><input type="checkbox" name="interests" value="Objective neural metrics"> Objective neural metrics</label>
+            <label class="checkbox-option"><input type="checkbox" name="interests" value="New billable assessment"> New billable assessment</label>
+            <label class="checkbox-option"><input type="checkbox" name="interests" value="Readmission risk prediction"> Readmission risk prediction</label>
+            <label class="checkbox-option"><input type="checkbox" name="interests" value="Longitudinal patient tracking"> Longitudinal tracking</label>
+            <label class="checkbox-option"><input type="checkbox" name="interests" value="Research/clinical trials"> Research / clinical trials</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Preferred next step <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="next_step" value="Schedule a call" required> Schedule a call</label>
+            <label class="radio-option"><input type="radio" name="next_step" value="Send me more info"> Send me more info</label>
+            <label class="radio-option"><input type="radio" name="next_step" value="Request a pilot"> Request a pilot</label>
+          </div>
+          <div class="field-error" id="err-next-step">Please select a preferred next step</div>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit" id="btn-submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success State -->
+  <div class="success-state" id="success-state">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h2>You're All Set</h2>
+    <p>Thanks for your interest in NFI. We'll review your facility info and follow up within 1 business day. In the meantime, book a call to get the conversation started.</p>
+    <a href="https://calendly.com/bryson-tremortoneapp/blueprint-engineering-session" class="btn-calendly">Book Your Call Now</a>
+    <br>
+    <a href="video.html" class="btn-back">Back to video overview</a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2026 Neuroplastic Labs &mdash;
+    <a href="index.html">neuroplasticlabs.io</a>
+  </div>
+
+  <script>
+  (function() {
+    // ── Airtable config (placeholder — replace with real values) ──
+    const AIRTABLE_BASE_ID = 'YOUR_BASE_ID';
+    const AIRTABLE_TABLE_NAME = 'Intake';
+    const AIRTABLE_API_KEY = 'YOUR_API_KEY';
+
+    const form = document.getElementById('intake-form');
+    const formContainer = document.getElementById('form-container');
+    const pageIntro = document.getElementById('page-intro');
+    const successState = document.getElementById('success-state');
+    const btnSubmit = document.getElementById('btn-submit');
+    const fimWarning = document.getElementById('fim-warning');
+
+    // Show/hide FIM warning
+    document.querySelectorAll('input[name="fim"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        fimWarning.classList.toggle('visible', this.value === 'No');
+      });
+    });
+
+    // Collect form data
+    function getFormData() {
+      var data = {};
+      data.facility_name = form.facility_name.value.trim();
+      data.contact_name = form.contact_name.value.trim();
+      data.role = form.role.value.trim();
+      data.email = form.email.value.trim();
+      data.phone = form.phone.value.trim();
+      data.facility_type = form.facility_type.value;
+      data.beds = form.beds.value;
+
+      var fimRadio = form.querySelector('input[name="fim"]:checked');
+      data.fim = fimRadio ? fimRadio.value : '';
+
+      var assessments = [];
+      form.querySelectorAll('input[name="assessments"]:checked').forEach(function(cb) {
+        if (cb.value === 'Other') {
+          var otherText = document.getElementById('assess-other-text').value.trim();
+          assessments.push(otherText ? 'Other: ' + otherText : 'Other');
+        } else {
+          assessments.push(cb.value);
+        }
+      });
+      data.assessments = assessments.join(', ');
+
+      var billedRadio = form.querySelector('input[name="billed"]:checked');
+      data.billed = billedRadio ? billedRadio.value : '';
+
+      data.readmission_rate = form.readmission_rate.value;
+
+      var reducePriority = form.querySelector('input[name="reduce_priority"]:checked');
+      data.reduce_priority = reducePriority ? reducePriority.value : '';
+
+      data.challenge = form.challenge.value.trim();
+
+      var interests = [];
+      form.querySelectorAll('input[name="interests"]:checked').forEach(function(cb) {
+        interests.push(cb.value);
+      });
+      data.interests = interests.join(', ');
+
+      var nextStep = form.querySelector('input[name="next_step"]:checked');
+      data.next_step = nextStep ? nextStep.value : '';
+
+      data.qualified = data.fim === 'Yes';
+
+      return data;
+    }
+
+    // Validation
+    function validate() {
+      var valid = true;
+
+      var checks = [
+        { id: 'facility-name', test: function() { return form.facility_name.value.trim() !== ''; } },
+        { id: 'contact-name', test: function() { return form.contact_name.value.trim() !== ''; } },
+        { id: 'role', test: function() { return form.role.value.trim() !== ''; } },
+        { id: 'email', test: function() { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value.trim()); } },
+        { id: 'facility-type', test: function() { return form.facility_type.value !== ''; } },
+        { id: 'fim', test: function() { return form.querySelector('input[name="fim"]:checked') !== null; } },
+        { id: 'next-step', test: function() { return form.querySelector('input[name="next_step"]:checked') !== null; } }
+      ];
+
+      checks.forEach(function(check) {
+        var errEl = document.getElementById('err-' + check.id);
+        if (!check.test()) {
+          valid = false;
+          if (errEl) errEl.classList.add('visible');
+        } else {
+          if (errEl) errEl.classList.remove('visible');
+        }
+      });
+
+      return valid;
+    }
+
+    // Submit to Airtable
+    function submitToAirtable(data) {
+      if (AIRTABLE_BASE_ID === 'YOUR_BASE_ID') {
+        console.log('[Intake] Airtable not configured — logging submission:', data);
+        return Promise.resolve({ id: 'placeholder' });
+      }
+
+      return fetch('https://api.airtable.com/v0/' + AIRTABLE_BASE_ID + '/' + encodeURIComponent(AIRTABLE_TABLE_NAME), {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + AIRTABLE_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          records: [{
+            fields: {
+              'Facility Name': data.facility_name,
+              'Contact Name': data.contact_name,
+              'Role': data.role,
+              'Email': data.email,
+              'Phone': data.phone,
+              'Facility Type': data.facility_type,
+              'Beds': data.beds,
+              'FIM': data.fim,
+              'Assessments': data.assessments,
+              'Billed': data.billed,
+              'Readmission Rate': data.readmission_rate,
+              'Reduce Priority': data.reduce_priority,
+              'Challenge': data.challenge,
+              'Interests': data.interests,
+              'Next Step': data.next_step,
+              'Qualified': data.qualified
+            }
+          }]
+        })
+      }).then(function(res) { return res.json(); });
+    }
+
+    // Handle submit
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (!validate()) {
+        // Scroll to first error
+        var firstErr = form.querySelector('.field-error.visible');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var data = getFormData();
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Submitting...';
+
+      submitToAirtable(data)
+        .then(function() {
+          formContainer.style.display = 'none';
+          pageIntro.style.display = 'none';
+          successState.classList.add('visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(function(err) {
+          console.error('[Intake] Submission error:', err);
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = 'Submit';
+          alert('Something went wrong. Please try again.');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

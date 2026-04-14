@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroplastic Labs — Reduce Readmissions with Objective Discharge Assessment</title>
+
+  <!-- OG tags for email/social previews -->
+  <meta property="og:title" content="Your Discharge Assessments Are Missing Neurological Data">
+  <meta property="og:description" content="Facilities using objective neural fitness metrics at discharge see fewer 30-day readmissions. See how NFI works alongside your existing exit exams.">
+  <meta property="og:type" content="video.other">
+  <!-- <meta property="og:image" content="https://brysonlee-code.github.io/grip-platform/assets/video-thumb.png"> -->
+  <meta property="og:url" content="https://neuroplasticlabs.io/video.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0a12;
+      color: #E0E0E0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: #7BA3F0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    .header {
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-link:hover { text-decoration: none; }
+
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .header-cta {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #5B86E5;
+      background: transparent;
+      border: 1.5px solid rgba(91,134,229,0.35);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .header-cta:hover {
+      background: rgba(91,134,229,0.08);
+      border-color: #5B86E5;
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(91,134,229,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 25%, rgba(155,89,182,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 75%, rgba(212,145,90,0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at center, transparent 30%, #0a0a12 80%);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #7BA3F0;
+      background: rgba(91,134,229,0.12);
+      border: 1px solid rgba(91,134,229,0.25);
+      border-radius: 20px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .hero-accent {
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.1rem;
+      line-height: 1.65;
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.75rem; }
+      .hero p { font-size: 1rem; }
+    }
+
+    /* ── Video ── */
+    .video-wrapper {
+      max-width: 820px;
+      margin: 0 auto 3.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .video-frame {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #0e0e18;
+      border: 1px solid rgba(91,134,229,0.15);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 30px rgba(91,134,229,0.06);
+    }
+
+    .video-aspect {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+    }
+
+    .video-aspect > * {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    .video-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(165deg, rgba(14,14,24,0.97) 0%, rgba(10,10,18,0.99) 100%);
+      cursor: pointer;
+    }
+
+    .play-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(91,134,229,0.1);
+      border: 2px solid rgba(91,134,229,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .play-icon svg { width: 30px; height: 30px; fill: #5B86E5; margin-left: 4px; }
+
+    .video-placeholder:hover .play-icon {
+      background: rgba(91,134,229,0.2);
+      box-shadow: 0 0 30px rgba(91,134,229,0.3);
+      transform: scale(1.05);
+    }
+
+    .placeholder-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .video-embed { border: none; display: none; }
+    .video-player { display: none; object-fit: cover; }
+
+    /* ── Problem / Pain point ── */
+    .problem-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3.5rem;
+      position: relative;
+    }
+
+    .problem-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    .problem-section > p {
+      text-align: center;
+      color: rgba(255,255,255,0.65);
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .stat-row { grid-template-columns: 1fr; }
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-number.red { color: #D4915A; text-shadow: 0 0 15px rgba(212,145,90,0.3); }
+    .stat-number.yellow { color: #E8B07A; text-shadow: 0 0 15px rgba(232,176,122,0.3); }
+    .stat-number.blue { color: #5B86E5; text-shadow: 0 0 15px rgba(91,134,229,0.3); }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.4;
+    }
+
+    /* ── Comparison table ── */
+    .comparison-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3.5rem;
+      position: relative;
+    }
+
+    .comparison-section::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -100px;
+      width: 500px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(91,134,229,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .comparison-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .comparison-section > p {
+      text-align: center;
+      color: rgba(255,255,255,0.65);
+      margin: 0 auto 2rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .comparison-table thead th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .comparison-table thead th:last-child {
+      color: #7BA3F0;
+    }
+
+    .comparison-table tbody td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+
+    .comparison-table tbody td:first-child {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .comparison-table tbody td:nth-child(2) {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .comparison-table tbody td:last-child {
+      color: #B87FD0;
+      font-weight: 500;
+    }
+
+    .table-wrap {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .check { color: #9B59B6; }
+    .x-mark { color: #D4915A; }
+    .partial { color: #E8B07A; }
+
+    /* ── How it works ── */
+    .how-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3.5rem;
+    }
+
+    .how-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #ffffff;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .how-steps { grid-template-columns: 1fr; }
+    }
+
+    .how-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(91,134,229,0.2);
+      margin-bottom: 0.75rem;
+    }
+
+    .how-step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .how-step p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    /* ── Billing / Revenue ── */
+    .billing-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3.5rem;
+      position: relative;
+    }
+
+    .billing-section::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -80px;
+      width: 450px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(212,145,90,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .billing-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .billing-section > p {
+      text-align: center;
+      color: rgba(255,255,255,0.65);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .billing-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .billing-cards { grid-template-columns: 1fr; }
+    }
+
+    .billing-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+    }
+
+    .billing-card.highlight {
+      border-color: rgba(91,134,229,0.25);
+      background: rgba(91,134,229,0.05);
+    }
+
+    .billing-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .billing-card .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #7BA3F0;
+      margin-bottom: 0.5rem;
+    }
+
+    .billing-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    .billing-card .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-top: 0.75rem;
+    }
+
+    .tag-existing {
+      color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .tag-new {
+      color: #B87FD0;
+      background: rgba(155,89,182,0.15);
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(155,89,182,0.1) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .cta-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 30px rgba(91,134,229,0.35), 0 4px 16px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #7BA3F0;
+      background: transparent;
+      border: 2px solid rgba(91,134,229,0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(91,134,229,0.08);
+      border-color: #5B86E5;
+      text-decoration: none;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      width: 100%;
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer a { color: #7BA3F0; }
+
+    /* ── Divider ── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #5B86E5, #9B59B6);
+      margin: 0 auto 2.5rem;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background gradients -->
+  <div class="hero-bg"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <a href="index.html" class="logo-link">
+      <img src="logo.png" alt="Neuroplastic Labs" class="logo-img">
+      <span class="logo">NEUROPLASTIC LABS</span>
+    </a>
+    <a href="intake.html" class="header-cta">Fill Out Intake Form</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag">For Rehab Facility Leaders</div>
+    <h1>
+      Your Discharge Assessments Are<br>
+      <span class="hero-accent">Missing Neurological Data</span>
+    </h1>
+    <p>
+      FIM scores and exit exams measure what patients <em>can do</em> at discharge.
+      The Neuroplastic Fitness Index measures whether their <em>brain is ready</em> &mdash;
+      catching the patients most likely to bounce back within 30 days.
+    </p>
+  </div>
+
+  <!-- Video -->
+  <div class="video-wrapper">
+    <div class="video-frame">
+      <div class="video-aspect">
+        <!--
+          ============ VIDEO SETUP ============
+          OPTION A — YouTube embed:
+          <iframe class="video-embed" id="video-embed"
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          OPTION B — Self-hosted MP4:
+          <video class="video-player" id="video-player" controls preload="metadata"
+            poster="assets/video-thumb.png">
+            <source src="assets/demo.mp4" type="video/mp4">
+          </video>
+          ======================================
+        -->
+        <div class="video-placeholder" id="video-placeholder">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+          </div>
+          <span class="placeholder-text">Watch the 2-minute overview</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem: Readmission stats -->
+  <div class="problem-section">
+    <h2>The Readmission Problem</h2>
+    <p>
+      CMS penalizes facilities with high 30-day readmission rates. Current exit exams
+      miss the neurological gaps that predict who comes back.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number red">1 in 5</div>
+        <div class="stat-label">Rehab patients are readmitted within 30 days of discharge</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number yellow">$15K+</div>
+        <div class="stat-label">Average cost per avoidable readmission to the facility</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number blue">78%</div>
+        <div class="stat-label">Of readmissions show neurological markers that exit exams missed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison: Existing vs NFI -->
+  <div class="comparison-section">
+    <h2>How NFI Compares to What You Bill Today</h2>
+    <p>
+      NFI doesn't replace your existing assessments &mdash; it fills the neurological gap
+      they weren't designed to cover.
+    </p>
+
+    <div class="table-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Current Exit Exams</th>
+            <th>+ NFI Assessment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Functional mobility</td>
+            <td><span class="check">&#10003;</span> FIM / AM-PAC</td>
+            <td><span class="check">&#10003;</span> Retained</td>
+          </tr>
+          <tr>
+            <td>ADL independence</td>
+            <td><span class="check">&#10003;</span> Barthel Index</td>
+            <td><span class="check">&#10003;</span> Retained</td>
+          </tr>
+          <tr>
+            <td>Cognitive screen</td>
+            <td><span class="partial">~</span> MoCA / MMSE (subjective)</td>
+            <td><span class="check">&#10003;</span> Objective neural metrics</td>
+          </tr>
+          <tr>
+            <td>Neural efficiency</td>
+            <td><span class="x-mark">&#10007;</span> Not measured</td>
+            <td><span class="check">&#10003;</span> Spectral entropy / MEI</td>
+          </tr>
+          <tr>
+            <td>Beta suppression (motor readiness)</td>
+            <td><span class="x-mark">&#10007;</span> Not measured</td>
+            <td><span class="check">&#10003;</span> EEG beta ERD tracking</td>
+          </tr>
+          <tr>
+            <td>Focus stability over time</td>
+            <td><span class="x-mark">&#10007;</span> Not measured</td>
+            <td><span class="check">&#10003;</span> Real-time gaze + variance</td>
+          </tr>
+          <tr>
+            <td>Tremor / motor control</td>
+            <td><span class="partial">~</span> Observational only</td>
+            <td><span class="check">&#10003;</span> IMU quantified (4-6Hz FFT)</td>
+          </tr>
+          <tr>
+            <td>Readmission risk prediction</td>
+            <td><span class="x-mark">&#10007;</span> Not available</td>
+            <td><span class="check">&#10003;</span> Composite NFI threshold</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="how-section">
+    <h2>How It Works at Your Facility</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">01</div>
+        <h3>5-Minute Assessment</h3>
+        <p>Patient wears a lightweight EEG headband during a guided cognitive task on a tablet. No special training needed for staff.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02</div>
+        <h3>Instant NFI Score</h3>
+        <p>The system computes Neural Efficiency, Focus Stability, Response Quality, and Vocal Calm into a single 0-100 score.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03</div>
+        <h3>Discharge Decision Support</h3>
+        <p>NFI score flags patients below threshold for extended care. Attaches to the clinical record as a billable assessment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Billing / Revenue -->
+  <div class="billing-section">
+    <h2>Adds Revenue to Assessments You Already Run</h2>
+    <p>
+      NFI is billed as a clinical neurophysiological assessment, complementing the
+      exit exams your facility already submits.
+    </p>
+
+    <div class="billing-cards">
+      <div class="billing-card">
+        <h3>FIM Assessment</h3>
+        <div class="code">97164 / G-codes</div>
+        <p>Functional Independence Measure &mdash; motor and cognitive subscales at admission and discharge.</p>
+        <div class="tag tag-existing">Already billing</div>
+      </div>
+      <div class="billing-card">
+        <h3>Cognitive Assessment</h3>
+        <div class="code">96116 / 96121</div>
+        <p>Neurobehavioral status exam. Currently relies on subjective MoCA/MMSE scoring.</p>
+        <div class="tag tag-existing">Already billing</div>
+      </div>
+      <div class="billing-card highlight">
+        <h3>NFI Neural Fitness Assessment</h3>
+        <div class="code">95819 / 95957</div>
+        <p>Quantitative EEG-based neurophysiological assessment with objective composite scoring. 5-minute protocol.</p>
+        <div class="tag tag-new">New billable line</div>
+      </div>
+      <div class="billing-card highlight">
+        <h3>Longitudinal NFI Tracking</h3>
+        <div class="code">95816 series</div>
+        <p>Repeat assessments during stay to show neuroplastic progress. Supports medical necessity for continued care.</p>
+        <div class="tag tag-new">New billable line</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="divider"></div>
+    <h2>See It in Action</h2>
+    <p>
+      Try the interactive NFI demo yourself, or schedule a 15-minute call to discuss
+      how NFI fits into your discharge workflow.
+    </p>
+    <div class="cta-buttons">
+      <a href="intake.html" class="btn-primary">Fill Out Intake Form</a>
+      <a href="https://brysonlee-code.github.io/grip-platform/" class="btn-secondary" target="_blank" rel="noopener">Try the Live Demo</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2026 Neuroplastic Labs &mdash;
+    <a href="index.html">neuroplasticlabs.io</a>
+  </div>
+
+  <script>
+    (function() {
+      const embed = document.getElementById('video-embed');
+      const player = document.getElementById('video-player');
+      const placeholder = document.getElementById('video-placeholder');
+
+      if (embed && embed.src && !embed.src.includes('YOUR_VIDEO_ID')) {
+        embed.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+      } else if (player && player.querySelector('source')?.src && !player.querySelector('source').src.includes('demo.mp4')) {
+        player.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>
