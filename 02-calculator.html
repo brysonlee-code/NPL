@@ -728,15 +728,19 @@
       const equipment = equipmentEl.value;
       const d = window._calcData || {};
 
+      // Map equipment values to Airtable select options
+      const equipMap = {
+        'yes_purchase': 'Purchase',
+        'yes_lease': 'Lease',
+        'need_info': 'Need Info'
+      };
       const record = {
         fields: {
           "Phone": phone,
           "Location": location,
-          "Equipment Commit": equipment,
           "Weekly Patients": d.weeklyPatients,
           "Sessions Per Patient": d.sessionsPerPatient,
           "Session Rate": d.sessionRate,
-          "Payer Mix": d.payerMix,
           "Readmissions Rate": d.readmissionRate,
           "Premature Discharge Rate": d.prematureDischargeRate,
           "Patient Population": d.patientPopulation,
@@ -744,23 +748,26 @@
           "Projected Annual Revenue": d.projectedAnnualRevenue
         }
       };
+      // Try adding select fields — if they fail, the core data still submits
+      try { record.fields["Equipment Commit"] = equipMap[equipment] || equipment; } catch(e) {}
+      try { record.fields["Payer Mix"] = d.payerMix; } catch(e) {}
 
-      // Submit to Airtable
+      // Submit to Airtable (retry without select fields if first attempt fails)
       if (AIRTABLE_API_KEY) {
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`;
+        const hdrs = { 'Authorization': 'Bearer ' + AIRTABLE_API_KEY, 'Content-Type': 'application/json' };
         try {
-          await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`, {
-            method: 'POST',
-            headers: {
-              'Authorization': 'Bearer ' + AIRTABLE_API_KEY,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(record)
-          });
+          let resp = await fetch(url, { method: 'POST', headers: hdrs, body: JSON.stringify(record) });
+          if (!resp.ok) {
+            // Remove select fields and retry
+            delete record.fields["Equipment Commit"];
+            delete record.fields["Payer Mix"];
+            resp = await fetch(url, { method: 'POST', headers: hdrs, body: JSON.stringify(record) });
+          }
+          if (!resp.ok) console.warn('Airtable error:', await resp.text());
         } catch (e) {
           console.warn('Airtable submission failed:', e);
         }
-      } else {
-        console.log('Airtable record (API key not set):', JSON.stringify(record, null, 2));
       }
 
       // Navigate to confirmation
