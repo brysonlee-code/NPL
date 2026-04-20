@@ -569,19 +569,24 @@
   </footer>
 
   <script>
-    // Populate summary from URL params if passed from calculator
     const params = new URLSearchParams(window.location.search);
-    if (params.has('revenue')) {
-      document.getElementById('sumRevenue').textContent = '$' + parseInt(params.get('revenue')).toLocaleString();
-    }
-    if (params.has('gain')) {
-      document.getElementById('sumGain').textContent = '$' + parseInt(params.get('gain')).toLocaleString();
-    }
-    if (params.has('patients')) {
-      document.getElementById('sumPatients').textContent = params.get('patients') + ' pts/wk';
-    }
-    if (params.has('specialty')) {
-      document.getElementById('sumSpecialty').textContent = params.get('specialty');
+    const set = (id, val) => { if (val) document.getElementById(id).textContent = val; };
+
+    if (params.has('revenue')) set('sumRevenue', '$' + parseInt(params.get('revenue')).toLocaleString());
+    if (params.has('gain')) set('sumGain', '$' + parseInt(params.get('gain')).toLocaleString());
+    if (params.has('patients')) set('sumPatients', params.get('patients') + ' pts/wk');
+    if (params.has('specialty')) set('sumSpecialty', params.get('specialty'));
+    if (params.has('location')) set('sumLocation', params.get('location'));
+    if (params.has('phone')) set('sumPhone', params.get('phone'));
+
+    if (params.has('equipment')) {
+      const eq = params.get('equipment');
+      const labels = {
+        'yes_purchase': 'Purchase ($3,500)',
+        'yes_lease': 'Lease ($295/mo)',
+        'need_info': 'Needs more info'
+      };
+      set('sumPayment', labels[eq] || eq);
     }
   </script>
 </body>

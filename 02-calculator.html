@@ -296,6 +296,93 @@
       margin-top: 1.5rem;
     }
 
+    /* ── Qualify Form (appears after results) ── */
+    .qualify-section {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+      display: none;
+    }
+
+    .qualify-card {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .qualify-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      color: #1a1a2e;
+      margin-bottom: 0.4rem;
+    }
+
+    .qualify-sub {
+      font-size: 0.85rem;
+      color: #8a8a9a;
+      margin-bottom: 1.5rem;
+    }
+
+    .equipment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 8px;
+    }
+
+    .equipment-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 1rem 1.25rem;
+      border: 1.5px solid #e0e0e8;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .equipment-option:hover {
+      border-color: #5B86E5;
+      background: rgba(91,134,229,0.03);
+    }
+
+    .equipment-option.selected {
+      border-color: #5B86E5;
+      background: rgba(91,134,229,0.06);
+    }
+
+    .equipment-option input[type="radio"] {
+      margin-top: 2px;
+      accent-color: #5B86E5;
+    }
+
+    .equipment-option .opt-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2d2d3a;
+    }
+
+    .equipment-option .opt-desc {
+      font-size: 0.78rem;
+      color: #8a8a9a;
+      margin-top: 2px;
+    }
+
+    .qualify-submit {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .qualify-error {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
     /* ── Footer ── */
     .footer {
       max-width: 720px;
@@ -471,11 +558,65 @@
           <div class="result-label">Payback Period</div>
         </div>
       </div>
-      <div class="result-next">
-        <a href="04-confirmation.html" class="cta-btn" style="margin-top: 1.5rem;">
-          Claim My Free Pilot &rarr;
-        </a>
+      <div class="result-next" id="resultNext">
+        <p style="color:#8a8a9a; font-size:0.85rem; margin-top:1rem;">Scroll down to secure your free pilot &darr;</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Qualify — appears after results -->
+  <section class="qualify-section" id="qualifySection">
+    <div class="qualify-card">
+      <div class="qualify-title">Secure Your Free Pilot</div>
+      <div class="qualify-sub">Three quick fields and you're in.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <div class="hint">Best number to reach you</div>
+          <input type="tel" id="qPhone" placeholder="(555) 123-4567">
+        </div>
+        <div class="form-group">
+          <label>Clinic Location</label>
+          <div class="hint">City, State</div>
+          <input type="text" id="qLocation" placeholder="Cleveland, OH">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 0.5rem;">
+        <label>Equipment Commitment</label>
+        <div class="hint">The pilot includes 5 free patients. Hardware is yours to keep.</div>
+        <div class="equipment-options">
+          <label class="equipment-option" onclick="selectEquipment(this)">
+            <input type="radio" name="equipment" value="yes_purchase">
+            <div>
+              <div class="opt-label">Yes, I'll purchase the equipment ($3,500)</div>
+              <div class="opt-desc">Money-back guarantee. Most clinics pay it off in month one from new billable revenue.</div>
+            </div>
+          </label>
+          <label class="equipment-option" onclick="selectEquipment(this)">
+            <input type="radio" name="equipment" value="yes_lease">
+            <div>
+              <div class="opt-label">I'd prefer to lease monthly</div>
+              <div class="opt-desc">$295/mo with no upfront cost. Cancel anytime after pilot.</div>
+            </div>
+          </label>
+          <label class="equipment-option" onclick="selectEquipment(this)">
+            <input type="radio" name="equipment" value="need_info">
+            <div>
+              <div class="opt-label">I need more info first</div>
+              <div class="opt-desc">No problem. We'll walk through pricing on your 15-min call.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="qualify-submit">
+        <button class="cta-btn" onclick="submitQualify()">
+          Claim My Free Pilot &rarr;
+        </button>
+      </div>
+      <div class="qualify-error" id="qualifyError">Please fill in all fields and select an equipment option.</div>
     </div>
   </section>
 
@@ -536,12 +677,106 @@
       // Hide calculate button
       document.getElementById('calcBtn').style.display = 'none';
 
-      // Wire confirmation link with data
+      // Show qualify form
+      document.getElementById('qualifySection').style.display = 'block';
+
+      // Store calc data for submission
       const pop = document.getElementById('patientPop');
-      const specLabel = pop.options[pop.selectedIndex].text;
-      const netGain = totalGain - hardwareCost;
-      const confirmLink = document.querySelector('.result-next .cta-btn');
-      confirmLink.href = `04-confirmation.html?revenue=${nfiAnnual}&gain=${netGain}&patients=${weekly}&specialty=${encodeURIComponent(specLabel)}`;
+      window._calcData = {
+        weeklyPatients: weekly,
+        sessionsPerPatient: sessions,
+        sessionRate: rate,
+        payerMix: document.getElementById('payerMix').value,
+        readmissionRate: readmission,
+        prematureDischargeRate: premature,
+        patientPopulation: pop.options[pop.selectedIndex].text,
+        staffCount: staff,
+        projectedAnnualRevenue: nfiAnnual,
+        monthlyAddOn: nfiMonthly,
+        perPatientRevenue: perPatient,
+        readmissionSavings: readmissionSavings,
+        roi: roi,
+        paybackMonths: paybackMonths,
+        netGain: totalGain - hardwareCost
+      };
+    }
+
+    function selectEquipment(el) {
+      document.querySelectorAll('.equipment-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+    }
+
+    // ── Airtable config ──
+    const AIRTABLE_BASE_ID = 'apprh5Q4N3lPQrs86';
+    const AIRTABLE_TABLE_NAME = 'tblr6LyB5aI28zQf6';
+    const AIRTABLE_API_KEY = 'YOUR_API_KEY'; // Replace with your Personal Access Token
+
+    async function submitQualify() {
+      const phone = document.getElementById('qPhone').value.trim();
+      const location = document.getElementById('qLocation').value.trim();
+      const equipmentEl = document.querySelector('input[name="equipment"]:checked');
+      const errEl = document.getElementById('qualifyError');
+
+      if (!phone || !location || !equipmentEl) {
+        errEl.style.display = 'block';
+        return;
+      }
+      errEl.style.display = 'none';
+
+      const equipment = equipmentEl.value;
+      const d = window._calcData || {};
+
+      const record = {
+        fields: {
+          "Phone": phone,
+          "Location": location,
+          "Equipment Commitment": equipment,
+          "Weekly Patients": d.weeklyPatients,
+          "Sessions Per Patient": d.sessionsPerPatient,
+          "Session Rate": d.sessionRate,
+          "Payer Mix": d.payerMix,
+          "Readmission Rate": d.readmissionRate,
+          "Premature Discharge Rate": d.prematureDischargeRate,
+          "Patient Population": d.patientPopulation,
+          "Clinicians on Staff": d.staffCount,
+          "Projected Annual Revenue": d.projectedAnnualRevenue,
+          "Monthly Add-On": d.monthlyAddOn,
+          "ROI": d.roi,
+          "Payback Months": d.paybackMonths,
+          "Source": "Email Funnel Calculator"
+        }
+      };
+
+      // Submit to Airtable
+      if (AIRTABLE_API_KEY !== 'YOUR_API_KEY') {
+        try {
+          await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + AIRTABLE_API_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(record)
+          });
+        } catch (e) {
+          console.warn('Airtable submission failed:', e);
+        }
+      } else {
+        console.log('Airtable record (API key not set):', JSON.stringify(record, null, 2));
+      }
+
+      // Navigate to confirmation
+      const params = new URLSearchParams({
+        revenue: d.projectedAnnualRevenue || 0,
+        gain: d.netGain || 0,
+        patients: d.weeklyPatients || 0,
+        specialty: d.patientPopulation || '',
+        location: location,
+        phone: phone,
+        equipment: equipment
+      });
+      window.location.href = '04-confirmation.html?' + params.toString();
     }
   </script>
 </body>
