@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroplastic Labs — Real-Time Brain Monitoring for PT Clinics</title>
+
+  <meta property="og:title" content="Your patients' brains are recovering. See the data.">
+  <meta property="og:description" content="Watch the 2-minute demo — then calculate exactly what real-time brain monitoring means for your clinic's revenue.">
+  <meta property="og:type" content="video.other">
+  <meta property="og:url" content="https://neuroplasticlabs.io/01-watch-video.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #2d2d3a;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: #5B86E5; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    .header {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-area:hover { text-decoration: none; }
+
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 16px;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      color: #8a8a9a;
+      text-transform: uppercase;
+    }
+
+    .header-menu {
+      width: 28px; height: 28px;
+      background: #e8e8ee;
+      border-radius: 50%;
+      border: none; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2rem;
+      text-align: left;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #D4915A;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.12;
+      color: #1a1a2e;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero h1 em {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      color: #7B8FD4;
+    }
+
+    .hero-sub {
+      color: #8a8a9a;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 560px;
+    }
+
+    /* ── Video Player ── */
+    .video-section {
+      max-width: 720px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #e4e4ec;
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+      box-shadow: 0 8px 40px rgba(91,134,229,0.12);
+    }
+
+    .video-container video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(26,26,46,0.35);
+      transition: opacity 0.3s;
+    }
+
+    .video-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    .play-btn {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .play-btn:hover { transform: scale(1.08); }
+    .play-btn svg { margin-left: 4px; }
+
+    .video-label {
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 12px;
+      opacity: 0.9;
+    }
+
+    .video-duration {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 3px 10px;
+    }
+
+    .nfi-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 14px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+    .nfi-badge .nfi-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #5B86E5;
+      line-height: 1;
+    }
+    .nfi-badge .nfi-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #8a8a9a;
+      text-transform: uppercase;
+    }
+
+    /* ── CTA Card ── */
+    .cta-card {
+      max-width: 720px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .cta-box {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #5B86E5, #7B6FD4);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(91,134,229,0.25);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(91,134,229,0.35);
+      text-decoration: none;
+    }
+    .cta-btn .arrow { margin-left: 8px; }
+
+    .cta-meta {
+      color: #8a8a9a;
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+
+    .trust-checks {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .trust-checks span {
+      font-size: 0.78rem;
+      color: #6a6a7a;
+    }
+
+    .trust-checks span::before {
+      content: "\2713 ";
+      color: #5B86E5;
+      font-weight: 600;
+    }
+
+    /* ── Testimonial ── */
+    .testimonial-section {
+      max-width: 720px;
+      margin: 3rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial {
+      border-left: 3px solid #9B59B6;
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
+      background: #fff;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .testimonial p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: #2d2d3a;
+    }
+
+    .testimonial p strong {
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1.25rem;
+    }
+
+    .author-avatar {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 13px;
+    }
+
+    .author-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #2d2d3a;
+    }
+
+    .author-role {
+      font-size: 0.75rem;
+      color: #8a8a9a;
+    }
+
+    /* ── Benefits ── */
+    .benefits {
+      max-width: 720px;
+      margin: 3rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 16px;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .benefit:last-child { border-bottom: none; }
+
+    .benefit-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: #f0f2f8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .benefit h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2d2d3a;
+      margin-bottom: 4px;
+    }
+
+    .benefit p {
+      font-size: 0.85rem;
+      color: #6a6a7a;
+      line-height: 1.5;
+    }
+
+    /* ── Bottom CTA ── */
+    .bottom-cta {
+      max-width: 720px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .bottom-cta .cta-box {
+      background: linear-gradient(135deg, rgba(91,134,229,0.06), rgba(155,89,182,0.06));
+      border: 1px solid rgba(91,134,229,0.15);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .footer-wave {
+      height: 4px;
+      background: linear-gradient(90deg, #5B86E5, #9B59B6, #D4915A);
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+      opacity: 0.4;
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-sub { font-size: 0.95rem; }
+      .cta-btn { font-size: 0.9rem; padding: 0.9rem 1.8rem; }
+      .trust-checks { gap: 0.6rem 1rem; }
+      .testimonial p { font-size: 1rem; }
+      .nfi-badge { top: 10px; right: 10px; padding: 6px 10px; }
+      .nfi-badge .nfi-num { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="logo-area">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">Neuroplastic Labs</span>
+    </a>
+    <div class="header-menu"></div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-tag">For Neuro Specialty PT Clinics</div>
+    <h1>Your patients' brains are recovering.<br><em>See the data.</em></h1>
+    <p class="hero-sub">Watch the 2-minute demo &mdash; then calculate exactly what real-time brain monitoring means for your clinic's revenue.</p>
+  </section>
+
+  <!-- Video -->
+  <section class="video-section">
+    <div class="video-container" id="videoContainer">
+      <video id="demoVideo" preload="metadata" playsinline>
+        <source src="demo.mp4" type="video/mp4">
+      </video>
+      <div class="nfi-badge">
+        <div class="nfi-num">84</div>
+        <div class="nfi-label">NFI Score</div>
+      </div>
+      <div class="video-overlay" id="videoOverlay">
+        <button class="play-btn" aria-label="Play video">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#1a1a2e">
+            <polygon points="6,3 20,12 6,21" />
+          </svg>
+        </button>
+        <div class="video-label">Real-Time Brain Monitoring in a PT Clinic</div>
+        <div class="video-duration">2 MIN</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Primary CTA -->
+  <section class="cta-card">
+    <div class="cta-box">
+      <a href="02-calculator.html" class="cta-btn">
+        Calculate My Revenue Opportunity <span class="arrow">&rarr;</span>
+      </a>
+      <div class="cta-meta">60 seconds &middot; Free &middot; No commitment</div>
+      <div class="trust-checks">
+        <span>5 patients free</span>
+        <span>Money-back guarantee</span>
+        <span>30-min setup</span>
+        <span>Billing support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="testimonial-section">
+    <div class="section-label">What clinicians are saying</div>
+    <div class="testimonial">
+      <p>&ldquo;I finally have something to show my stroke patients that their brain is <strong>actually changing</strong>. The NFI score gives me a number I can point to &mdash; and it gives them a reason to keep coming back.&rdquo;</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">KL</div>
+        <div>
+          <div class="author-name">Dr. K. Larson, PT, DPT</div>
+          <div class="author-role">Neuro Specialty Outpatient &middot; Beta Clinic Partner</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="benefits">
+    <div class="benefit">
+      <div class="benefit-icon">&#x1F4CA;</div>
+      <div>
+        <h3>Documented Brain Data</h3>
+        <p>Real-time qEEG every session. Objective neural recovery scores you can document, track, and show payers &mdash; in the clinic, not a lab.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">&#x1F4B0;</div>
+      <div>
+        <h3>New Billable Revenue</h3>
+        <p>Bill cash-pay or clinical decision support codes on top of your existing visits. Most clinics recover hardware cost in month one.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">&#x1F4C9;</div>
+      <div>
+        <h3>Fewer Readmissions</h3>
+        <p>Neural biomarker monitoring catches recovery risk early &mdash; reducing 30-day readmissions and premature discharges by up to 40%.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta">
+    <div class="cta-box">
+      <a href="02-calculator.html" class="cta-btn">
+        See My Revenue Number <span class="arrow">&rarr;</span>
+      </a>
+      <div class="cta-meta" style="margin-top: 0.75rem;">Built by neuroscientists from Cleveland Clinic's Neurological Institute</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-wave"></div>
+    <div class="footer-text">
+      Bryson Rhodes &middot; Founder &amp; CEO &middot; Neuroplastic Labs &middot; Former Cleveland Clinic Neurological Institute
+    </div>
+  </footer>
+
+  <script>
+    const container = document.getElementById('videoContainer');
+    const video = document.getElementById('demoVideo');
+    const overlay = document.getElementById('videoOverlay');
+
+    container.addEventListener('click', function() {
+      if (video.paused) {
+        video.play();
+        overlay.classList.add('hidden');
+      } else {
+        video.pause();
+        overlay.classList.remove('hidden');
+      }
+    });
+
+    video.addEventListener('ended', function() {
+      overlay.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

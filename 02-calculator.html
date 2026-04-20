@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroplastic Labs — Revenue Calculator + Pilot Application</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #2d2d3a;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: #5B86E5; text-decoration: none; }
+
+    /* ── Header ── */
+    .header {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo-area {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .logo-area:hover { text-decoration: none; }
+
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 16px;
+    }
+
+    .logo-text {
+      font-weight: 700; font-size: 13px; letter-spacing: 1.5px;
+      color: #8a8a9a; text-transform: uppercase;
+    }
+
+    .header-menu {
+      width: 28px; height: 28px;
+      background: #e8e8ee; border-radius: 50%;
+      border: none; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 1.5rem;
+      text-align: left;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: #D4915A;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem; font-weight: 700;
+      line-height: 1.12; color: #1a1a2e;
+    }
+
+    .hero h1 em {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic; color: #7B8FD4;
+    }
+
+    .hero-sub {
+      color: #8a8a9a; font-size: 1rem;
+      line-height: 1.6; margin-top: 1rem;
+      max-width: 560px;
+    }
+
+    /* ── Form ── */
+    .form-section {
+      max-width: 720px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .form-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-header h2 {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #8a8a9a;
+    }
+
+    .form-header .timer {
+      font-size: 0.75rem; font-weight: 500;
+      color: #5B86E5;
+      border: 1px solid rgba(91,134,229,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6a6a7a;
+      margin-bottom: 4px;
+    }
+
+    .form-group .hint {
+      font-size: 0.72rem;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px 14px;
+      border: 1px solid #e0e0e8;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #2d2d3a;
+      background: #f8f8fc;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #5B86E5;
+      box-shadow: 0 0 0 3px rgba(91,134,229,0.1);
+    }
+
+    .form-group select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' fill='none' stroke='%238a8a9a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .input-suffix {
+      position: relative;
+    }
+    .input-suffix .suffix {
+      position: absolute;
+      right: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 0.8rem; color: #aaa; pointer-events: none;
+    }
+    .input-suffix input { padding-right: 60px; }
+
+    .input-prefix {
+      position: relative;
+    }
+    .input-prefix .prefix {
+      position: absolute;
+      left: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: #aaa; pointer-events: none;
+    }
+    .input-prefix input { padding-left: 30px; }
+
+    /* ── Submit ── */
+    .submit-section {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #5B86E5, #7B6FD4);
+      color: #fff;
+      font-size: 1rem; font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(91,134,229,0.25);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(91,134,229,0.35);
+      text-decoration: none;
+    }
+
+    /* ── Results (hidden initially) ── */
+    .results-section {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+      display: none;
+    }
+
+    .results-card {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .results-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      color: #1a1a2e;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .result-item {
+      background: #f8f8fc;
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .result-item.highlight {
+      background: linear-gradient(135deg, rgba(91,134,229,0.08), rgba(155,89,182,0.08));
+      border: 1px solid rgba(91,134,229,0.15);
+    }
+
+    .result-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #5B86E5;
+      line-height: 1.2;
+    }
+
+    .result-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8a8a9a;
+      margin-top: 4px;
+    }
+
+    .result-next {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-wave {
+      height: 4px;
+      background: linear-gradient(90deg, #5B86E5, #9B59B6, #D4915A);
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+      opacity: 0.4;
+    }
+
+    .footer-text {
+      font-size: 0.75rem; color: #aaa; line-height: 1.6;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.9rem; }
+      .form-row { grid-template-columns: 1fr; gap: 1rem; }
+      .results-grid { grid-template-columns: 1fr; }
+      .cta-btn { font-size: 0.9rem; padding: 0.9rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="logo-area">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">Neuroplastic Labs</span>
+    </a>
+    <div class="header-menu"></div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-tag">Step 2 &mdash; Revenue Analysis + Pilot Application</div>
+    <h1>How much is your clinic <em>leaving on the table?</em></h1>
+    <p class="hero-sub">Enter your numbers. Get an AI-powered revenue projection &mdash; then claim your free pilot in the same step.</p>
+  </section>
+
+  <!-- Calculator Form -->
+  <section class="form-section">
+    <form class="form-card" id="calcForm" onsubmit="return false;">
+      <div class="form-header">
+        <h2>Your Clinic Profile</h2>
+        <span class="timer">60 seconds</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Weekly Neuro Patients</label>
+          <div class="hint">Stroke, TBI, Parkinson's combined</div>
+          <div class="input-suffix">
+            <input type="number" id="weeklyPatients" value="25" min="1" max="500">
+            <span class="suffix">pts/wk</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Sessions Per Patient</label>
+          <div class="hint">Per episode of care</div>
+          <div class="input-suffix">
+            <input type="number" id="sessionsPerPatient" value="16" min="1" max="100">
+            <span class="suffix">sessions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Current Session Rate</label>
+          <div class="hint">Avg reimbursement per visit</div>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="sessionRate" value="175" min="50" max="1000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Payer Mix</label>
+          <div class="hint">Primary insurance type</div>
+          <select id="payerMix">
+            <option value="mixed" selected>Mixed</option>
+            <option value="medicare">Medicare</option>
+            <option value="medicaid">Medicaid</option>
+            <option value="private">Private Insurance</option>
+            <option value="cash">Cash Pay</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Readmission Rate</label>
+          <div class="hint">30-day readmissions (est.)</div>
+          <div class="input-suffix">
+            <input type="number" id="readmissionRate" value="18" min="0" max="100">
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Premature Discharge Rate</label>
+          <div class="hint">% discharged before optimal</div>
+          <div class="input-suffix">
+            <input type="number" id="prematureRate" value="22" min="0" max="100">
+            <span class="suffix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Patient Population</label>
+          <div class="hint">Largest diagnosis group</div>
+          <select id="patientPop">
+            <option value="all" selected>All Three</option>
+            <option value="stroke">Stroke</option>
+            <option value="tbi">TBI</option>
+            <option value="parkinsons">Parkinson's</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Clinicians on Staff</label>
+          <div class="hint">PTs treating neuro patients</div>
+          <div class="input-suffix">
+            <input type="number" id="staffCount" value="4" min="1" max="100">
+            <span class="suffix">staff</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Submit -->
+  <section class="submit-section">
+    <button class="cta-btn" id="calcBtn" onclick="calculateRevenue()">
+      Calculate My Revenue Opportunity
+    </button>
+  </section>
+
+  <!-- Results -->
+  <section class="results-section" id="resultsSection">
+    <div class="results-card">
+      <div class="results-title">Your Revenue Opportunity</div>
+      <div class="results-grid">
+        <div class="result-item highlight">
+          <div class="result-value" id="resAnnual">-</div>
+          <div class="result-label">New Annual Revenue</div>
+        </div>
+        <div class="result-item highlight">
+          <div class="result-value" id="resMonthly">-</div>
+          <div class="result-label">Monthly Add-On</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value" id="resPerPatient">-</div>
+          <div class="result-label">Per Patient Revenue</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value" id="resReadmission">-</div>
+          <div class="result-label">Readmission Savings</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value" id="resROI">-</div>
+          <div class="result-label">First-Year ROI</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value" id="resPayback">-</div>
+          <div class="result-label">Payback Period</div>
+        </div>
+      </div>
+      <div class="result-next">
+        <a href="04-confirmation.html" class="cta-btn" style="margin-top: 1.5rem;">
+          Claim My Free Pilot &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-wave"></div>
+    <div class="footer-text">
+      Bryson Rhodes &middot; Founder &amp; CEO &middot; Neuroplastic Labs &middot; Former Cleveland Clinic Neurological Institute
+    </div>
+  </footer>
+
+  <script>
+    function calculateRevenue() {
+      const weekly = parseInt(document.getElementById('weeklyPatients').value) || 25;
+      const sessions = parseInt(document.getElementById('sessionsPerPatient').value) || 16;
+      const rate = parseInt(document.getElementById('sessionRate').value) || 175;
+      const readmission = parseInt(document.getElementById('readmissionRate').value) || 18;
+      const premature = parseInt(document.getElementById('prematureRate').value) || 22;
+      const staff = parseInt(document.getElementById('staffCount').value) || 4;
+
+      // NFI add-on: ~$45-75 per session depending on payer
+      const nfiAddOn = 55;
+      const annualSessions = weekly * 52;
+      const nfiAnnual = annualSessions * nfiAddOn;
+      const nfiMonthly = Math.round(nfiAnnual / 12);
+
+      // Per patient: sessions * add-on
+      const perPatient = sessions * nfiAddOn;
+
+      // Readmission savings: reduced readmissions x cost per readmission (~$2,500 avg penalty)
+      const readmissionPenalty = 2500;
+      const annualPatients = weekly * 52;
+      const currentReadmissions = Math.round(annualPatients * (readmission / 100));
+      const reducedReadmissions = Math.round(currentReadmissions * 0.40);
+      const readmissionSavings = reducedReadmissions * readmissionPenalty;
+
+      // ROI: (annual revenue + savings) / hardware cost
+      const hardwareCost = 3500 * staff;
+      const totalGain = nfiAnnual + readmissionSavings;
+      const roi = Math.round((totalGain / hardwareCost) * 100);
+
+      // Payback: hardware cost / monthly revenue
+      const paybackMonths = Math.max(1, Math.round(hardwareCost / nfiMonthly));
+
+      // Format currency
+      const fmt = (n) => '$' + n.toLocaleString();
+
+      document.getElementById('resAnnual').textContent = fmt(nfiAnnual);
+      document.getElementById('resMonthly').textContent = fmt(nfiMonthly);
+      document.getElementById('resPerPatient').textContent = fmt(perPatient);
+      document.getElementById('resReadmission').textContent = fmt(readmissionSavings);
+      document.getElementById('resROI').textContent = roi + '%';
+      document.getElementById('resPayback').textContent = paybackMonths + ' mo';
+
+      document.getElementById('resultsSection').style.display = 'block';
+      document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Hide calculate button
+      document.getElementById('calcBtn').style.display = 'none';
+
+      // Wire confirmation link with data
+      const pop = document.getElementById('patientPop');
+      const specLabel = pop.options[pop.selectedIndex].text;
+      const netGain = totalGain - hardwareCost;
+      const confirmLink = document.querySelector('.result-next .cta-btn');
+      confirmLink.href = `04-confirmation.html?revenue=${nfiAnnual}&gain=${netGain}&patients=${weekly}&specialty=${encodeURIComponent(specLabel)}`;
+    }
+  </script>
+</body>
+</html>

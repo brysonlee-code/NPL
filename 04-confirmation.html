@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroplastic Labs — You're In</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #2d2d3a;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: #5B86E5; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    .header {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo-area {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .logo-area:hover { text-decoration: none; }
+
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #5B86E5, #9B59B6);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 16px;
+    }
+
+    .logo-text {
+      font-weight: 700; font-size: 13px; letter-spacing: 1.5px;
+      color: #8a8a9a; text-transform: uppercase;
+    }
+
+    .header-menu {
+      width: 28px; height: 28px;
+      background: #e8e8ee; border-radius: 50%;
+      border: none; cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .confetti { font-size: 3rem; margin-bottom: 0.5rem; }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.8rem; font-weight: 700;
+      line-height: 1.12; color: #1a1a2e;
+    }
+
+    .hero h1 em {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic; color: #7B8FD4;
+    }
+
+    .hero-sub {
+      color: #8a8a9a; font-size: 1rem;
+      line-height: 1.6; margin-top: 1rem;
+      max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+
+    /* ── Urgency Banner ── */
+    .urgency {
+      max-width: 720px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .urgency-box {
+      background: #fffcf5;
+      border: 1px solid #f0dfc0;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .urgency-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+    .urgency-text {
+      font-size: 0.85rem;
+      color: #6a5a3a;
+      line-height: 1.5;
+    }
+    .urgency-text strong { color: #D4915A; }
+
+    /* ── Booking Section ── */
+    .booking-section {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .booking-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .booking-header h2 {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #8a8a9a;
+    }
+
+    .status-badge {
+      font-size: 0.72rem; font-weight: 600;
+      color: #2ecc71;
+    }
+    .status-badge::before { content: "\2713 "; }
+
+    .booking-card {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .booking-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: #1a1a2e; margin-bottom: 0.5rem;
+    }
+
+    .booking-desc {
+      font-size: 0.9rem; color: #8a8a9a;
+      line-height: 1.6; margin-bottom: 1.5rem;
+    }
+
+    /* Calendly placeholder */
+    .calendly-placeholder {
+      background: #f8f8fc;
+      border: 2px dashed #d8d8e4;
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calendly-placeholder .cal-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+    .calendly-placeholder .cal-text {
+      font-size: 0.95rem; font-weight: 600; color: #2d2d3a;
+    }
+
+    .calendly-placeholder .cal-hint {
+      font-size: 0.78rem; color: #aaa; margin-top: 4px;
+    }
+
+    /* CTA buttons */
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #5B86E5, #7B6FD4);
+      color: #fff;
+      font-size: 1rem; font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(91,134,229,0.25);
+      width: 100%; justify-content: center;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(91,134,229,0.35);
+      text-decoration: none;
+    }
+
+    .secondary-btns {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-secondary {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-email {
+      background: transparent;
+      color: #5B86E5;
+      border: none;
+    }
+    .btn-email:hover { text-decoration: underline; }
+
+    .btn-text {
+      background: #f0f8f0;
+      color: #2ecc71;
+      border: 1px solid rgba(46,204,113,0.25);
+    }
+    .btn-text:hover { background: #e5f5e5; text-decoration: none; }
+
+    .contact-note {
+      font-size: 0.75rem; color: #aaa;
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    /* ── Application Summary ── */
+    .summary-section {
+      max-width: 720px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .summary-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .summary-header h2 {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #8a8a9a;
+    }
+
+    .summary-card {
+      background: #fff;
+      border: 1px solid #e4e4ec;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(91,134,229,0.06);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .summary-item label {
+      font-size: 0.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #8a8a9a;
+      display: block; margin-bottom: 4px;
+    }
+
+    .summary-item .value {
+      font-size: 0.95rem; font-weight: 500;
+      color: #2d2d3a;
+    }
+
+    .summary-item .value.highlight {
+      color: #5B86E5; font-weight: 700;
+    }
+
+    .summary-item .value.status {
+      color: #2ecc71; font-weight: 600;
+    }
+
+    /* ── Steps ── */
+    .steps-section {
+      max-width: 720px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .steps-label {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #8a8a9a;
+      margin-bottom: 1.25rem;
+    }
+
+    .step {
+      display: flex; gap: 16px;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: #f0f2f8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; color: #7B8FD4;
+      flex-shrink: 0;
+    }
+
+    .step h3 {
+      font-size: 0.95rem; font-weight: 600;
+      color: #2d2d3a; margin-bottom: 4px;
+    }
+
+    .step p {
+      font-size: 0.82rem; color: #8a8a9a; line-height: 1.5;
+    }
+
+    /* ── Guarantee ── */
+    .guarantee {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .guarantee-box {
+      background: #f5faf5;
+      border: 1px solid rgba(46,204,113,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+
+    .guarantee-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+    .guarantee-text h4 {
+      font-size: 0.9rem; font-weight: 700;
+      color: #2ecc71; margin-bottom: 4px;
+    }
+
+    .guarantee-text p {
+      font-size: 0.82rem; color: #6a6a7a; line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-contact {
+      font-size: 0.85rem; color: #8a8a9a;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-email {
+      font-size: 0.9rem; font-weight: 600;
+      color: #5B86E5;
+    }
+
+    .footer-wave {
+      height: 4px;
+      background: linear-gradient(90deg, #5B86E5, #9B59B6, #D4915A);
+      border-radius: 2px;
+      margin: 1.5rem 0 1rem;
+      opacity: 0.4;
+    }
+
+    .footer-text {
+      font-size: 0.75rem; color: #aaa; line-height: 1.6;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2.1rem; }
+      .booking-title { font-size: 1.5rem; }
+      .summary-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .cta-btn { font-size: 0.9rem; padding: 0.9rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="logo-area">
+      <div class="logo-mark">N</div>
+      <span class="logo-text">Neuroplastic Labs</span>
+    </a>
+    <div class="header-menu"></div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="confetti">&#127881;</div>
+    <h1>You're in,<br><em>Doctor.</em></h1>
+    <p class="hero-sub">Application received. One last step &mdash; book your 15-minute call and your free pilot starts immediately.</p>
+  </section>
+
+  <!-- Urgency -->
+  <section class="urgency">
+    <div class="urgency-box">
+      <span class="urgency-icon">&#9200;</span>
+      <div class="urgency-text">
+        <strong>Pilot spots are limited.</strong> Book your call now while your slot is held &mdash; hardware shipment is confirmed on the call.
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking-section">
+    <div class="booking-header">
+      <h2>Final Step &mdash; 15 Minutes</h2>
+      <span class="status-badge">Application received</span>
+    </div>
+    <div class="booking-card">
+      <div class="booking-title">Book Your Setup Call with Bryson</div>
+      <p class="booking-desc">See the live dashboard, walk through billing, and lock in your hardware with the money-back guarantee.</p>
+
+      <div class="calendly-placeholder" id="calendlyEmbed">
+        <div class="cal-icon">&#128197;</div>
+        <div class="cal-text">Pick a time that works for you</div>
+        <div class="cal-hint">Calendly booking widget loads here</div>
+      </div>
+
+      <!-- Replace the placeholder above with this when you have your Calendly URL:
+      <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_LINK" style="min-width:320px;height:630px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      -->
+
+      <a href="#" class="cta-btn" id="calendarBtn">
+        &#128197; Open Calendar &mdash; Book My 15-Min Call &rarr;
+      </a>
+
+      <div class="secondary-btns">
+        <a href="mailto:Bryson@tremortoneapp.com" class="btn-secondary btn-email">
+          &#9993; Email Bryson Directly
+        </a>
+        <a href="sms:+1XXXXXXXXXX" class="btn-secondary btn-text">
+          &#128172; Text to Schedule
+        </a>
+      </div>
+
+      <div class="contact-note">Bryson responds within 2 hours during business hours &middot; Cleveland, OH</div>
+    </div>
+  </section>
+
+  <!-- Application Summary -->
+  <section class="summary-section">
+    <div class="summary-header">
+      <h2>Your Application Summary</h2>
+      <span class="status-badge">Submitted</span>
+    </div>
+    <div class="summary-card">
+      <div class="summary-grid">
+        <div class="summary-item">
+          <label>Clinic</label>
+          <div class="value" id="sumClinic">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Location</label>
+          <div class="value" id="sumLocation">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Contact</label>
+          <div class="value" id="sumContact">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Phone</label>
+          <div class="value" id="sumPhone">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Weekly Patients</label>
+          <div class="value" id="sumPatients">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Specialty Mix</label>
+          <div class="value" id="sumSpecialty">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Payment Preference</label>
+          <div class="value" id="sumPayment">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Start Timeline</label>
+          <div class="value" id="sumTimeline">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Projected Annual Revenue</label>
+          <div class="value highlight" id="sumRevenue">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Net 12-Month Gain</label>
+          <div class="value highlight" id="sumGain">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>Lead Score</label>
+          <div class="value" id="sumLead">&mdash;</div>
+        </div>
+        <div class="summary-item">
+          <label>CRM Status</label>
+          <div class="value status">Submitted</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Happens on Call -->
+  <section class="steps-section">
+    <div class="steps-label">What Happens on Your 15-Min Call</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Live dashboard demo &mdash; 5 min</h3>
+        <p>See real qEEG data streaming live. NFI score, frequency bands, neural efficiency &mdash; exactly what your therapists see in sessions.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Billing walkthrough &mdash; 3 min</h3>
+        <p>Cash-pay add-on and CDS code pathways. You'll know exactly how to generate revenue from day one.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Hardware order + free pilot locked &mdash; 5 min</h3>
+        <p>Hardware ordered, 5-patient trial activated, ship date confirmed. Money-back guarantee starts on shipment.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h3>Your clinic goes live within 1 week</h3>
+        <p>Hardware arrives in 3&ndash;5 days. 30-minute staff onboarding. Brain-monitored sessions running the same day.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantee -->
+  <section class="guarantee">
+    <div class="guarantee-box">
+      <span class="guarantee-icon">&#128737;</span>
+      <div class="guarantee-text">
+        <h4>Full Money-Back Guarantee</h4>
+        <p>If after your 5-patient free trial you're not impressed by the NFI data &mdash; return the hardware, no questions asked. Zero risk to start.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-contact">Questions before your call? Reach out directly.</div>
+    <a href="mailto:Bryson@tremortoneapp.com" class="footer-email">Bryson@tremortoneapp.com</a>
+    <div class="footer-wave"></div>
+    <div class="footer-text">
+      Bryson Rhodes &middot; Founder &amp; CEO &middot; Neuroplastic Labs &middot; Former Cleveland Clinic Neurological Institute
+    </div>
+  </footer>
+
+  <script>
+    // Populate summary from URL params if passed from calculator
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('revenue')) {
+      document.getElementById('sumRevenue').textContent = '$' + parseInt(params.get('revenue')).toLocaleString();
+    }
+    if (params.has('gain')) {
+      document.getElementById('sumGain').textContent = '$' + parseInt(params.get('gain')).toLocaleString();
+    }
+    if (params.has('patients')) {
+      document.getElementById('sumPatients').textContent = params.get('patients') + ' pts/wk';
+    }
+    if (params.has('specialty')) {
+      document.getElementById('sumSpecialty').textContent = params.get('specialty');
+    }
+  </script>
+</body>
+</html>
