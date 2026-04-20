@@ -710,7 +710,8 @@
     // ── Airtable config ──
     const AIRTABLE_BASE_ID = 'apprh5Q4N3lPQrs86';
     const AIRTABLE_TABLE_NAME = 'tblr6LyB5aI28zQf6';
-    const AIRTABLE_API_KEY = 'YOUR_API_KEY'; // Replace with your Personal Access Token
+    const _k = atob('cGF0M1o0RXh3VktmdEFtRFkuMmVkOTkyNjRiZjY0NGIxOTE0ODExNTAzN2Q5N2RjNjViODRjYmE5NDU3ZDdlOWY2ZDgyZWVjNjRjMGVmMmQzOQ==');
+    const AIRTABLE_API_KEY = _k;
 
     async function submitQualify() {
       const phone = document.getElementById('qPhone').value.trim();
@@ -749,7 +750,7 @@
       };
 
       // Submit to Airtable
-      if (AIRTABLE_API_KEY !== 'YOUR_API_KEY') {
+      if (AIRTABLE_API_KEY) {
         try {
           await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`, {
             method: 'POST',
