@@ -163,6 +163,15 @@
     .play-btn:hover { transform: scale(1.08); }
     .play-btn svg { margin-left: 4px; }
 
+    .play-pulse {
+      animation: playPulse 2s ease infinite;
+    }
+
+    @keyframes playPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 0 0 rgba(255,255,255,0.4); }
+      50% { box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 0 16px rgba(255,255,255,0); }
+    }
+
     .video-label {
       color: #fff;
       font-size: 0.85rem;
@@ -438,7 +447,7 @@
   <!-- Video -->
   <section class="video-section">
     <div class="video-container" id="videoContainer">
-      <div id="ytThumbnail" style="position:absolute;inset:0;z-index:1;cursor:pointer;">
+      <div id="ytThumbnail" style="position:absolute;inset:0;z-index:1;">
         <img src="https://img.youtube.com/vi/KImIQsRvYWE/maxresdefault.jpg" alt="Watch the demo" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <iframe id="ytPlayer" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -446,13 +455,13 @@
         <div class="nfi-num">84</div>
         <div class="nfi-label">NFI Score</div>
       </div>
-      <div class="video-overlay" id="videoOverlay">
-        <button class="play-btn" aria-label="Play video">
+      <div class="video-overlay" id="videoOverlay" style="z-index:2;">
+        <button class="play-btn play-pulse" aria-label="Play video">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="#1a1a2e">
             <polygon points="6,3 20,12 6,21" />
           </svg>
         </button>
-        <div class="video-label">Real-Time Brain Monitoring in a PT Clinic</div>
+        <div class="video-label">Click to Watch the Demo</div>
         <div class="video-duration">2 MIN</div>
       </div>
     </div>
