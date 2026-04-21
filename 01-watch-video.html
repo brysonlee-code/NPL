@@ -438,9 +438,10 @@
   <!-- Video -->
   <section class="video-section">
     <div class="video-container" id="videoContainer">
-      <video id="demoVideo" preload="metadata" playsinline>
-        <source src="demo.mp4" type="video/mp4">
-      </video>
+      <div id="ytThumbnail" style="position:absolute;inset:0;z-index:1;cursor:pointer;">
+        <img src="https://img.youtube.com/vi/KImIQsRvYWE/maxresdefault.jpg" alt="Watch the demo" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <iframe id="ytPlayer" style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <div class="nfi-badge">
         <div class="nfi-num">84</div>
         <div class="nfi-label">NFI Score</div>
@@ -533,21 +534,16 @@
 
   <script>
     const container = document.getElementById('videoContainer');
-    const video = document.getElementById('demoVideo');
+    const thumbnail = document.getElementById('ytThumbnail');
+    const player = document.getElementById('ytPlayer');
     const overlay = document.getElementById('videoOverlay');
 
     container.addEventListener('click', function() {
-      if (video.paused) {
-        video.play();
+      if (!player.src) {
+        player.src = 'https://www.youtube.com/embed/KImIQsRvYWE?autoplay=1&rel=0';
+        thumbnail.style.display = 'none';
         overlay.classList.add('hidden');
-      } else {
-        video.pause();
-        overlay.classList.remove('hidden');
       }
-    });
-
-    video.addEventListener('ended', function() {
-      overlay.classList.remove('hidden');
     });
   </script>
 </body>
